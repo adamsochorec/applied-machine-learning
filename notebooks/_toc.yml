@@ -4,6 +4,16 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+  - file: 1-Introduction.ipynb
+  - file: 2-Modeling.ipynb
+  - file: 3-ReadingAndPlotting.ipynb
+  - file: 4-PreprocessingAndFeatureExtraction.ipynb
+  - file: 5-DimensionalityReduction bySubspaceProjections.ipynb
+  - file: 6-UnsupervisedLearning.ipynb
+  - file: 7-TrainingProcess.ipynb
+  - file: 12-NearestNeighborsMethods.ipynb
+  - file: 13-SupportVectorMachine(SVM).ipynb
+  - file: 14-DecisionTreesAndForests.ipynb
+  - file: 15-RegressionAndRegularisation.ipynb
+  - file: 16-ArtificialNeuralNetworks.ipynb
+  - file: 17-ModelLearningStrategies.ipynb
