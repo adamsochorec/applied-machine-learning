@@ -14,10 +14,7 @@ Practical implementation and usage of machine learning algorithms, application o
 
 ## Deployment commands
 ```bash
-$ poetry run jupyter-book build notebooks
-$ git add -A
-$ git commit -m "publish"
-$ poetry run ghp-import -n -p -f notebook/_build/html
+poetry run jupyter-book build notebooks &&  git add -A && git commit -m "publish" && git push && poetry run ghp-import -n -p -f notebooks/_build/html
 ```
 
 Useful [guide](https://https://medium.com/@dr.junghoonson/simplest-way-to-publish-your-jupyter-notebooks-on-the-open-web-using-jupyter-book-and-github-pages-eea144031d6f) for pubishing Jupyter Notebooks to GitHub Pages.
