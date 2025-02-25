@@ -1,0 +1,1347 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Unsupervised learning &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '6-UnsupervisedLearning';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Training process" href="7-TrainingProcess.html" />
+    <link rel="prev" title="Dimensionality reduction by Subspace projections" href="5-DimensionalityReduction%20bySubspaceProjections.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-Modeling.html">Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3-ReadingAndPlotting.html">Reading and plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-PreprocessingAndFeatureExtraction.html">Preprocessing and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-DimensionalityReduction%20bySubspaceProjections.html">Dimensionality reduction by Subspace projections</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Unsupervised learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-TrainingProcess.html">Training process</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12-NearestNeighborsMethods.html">Nearest Neighbours methods <a class="anchor" id="nearestneighbours"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-SupportVectorMachine%28SVM%29.html">Support Vector Machine (SVM) <a class="anchor" id="supportvectormachine"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-DecisionTreesAndForests.html">Decision trees and forests <a class="anchor" id="dtaforests"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-RegressionAndRegularisation.html">Regression and regularisation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="16-ArtificialNeuralNetworks.html">Artificial Neural Networks (ANN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-ModelLearningStrategies.html">Model learning strategies</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F6-UnsupervisedLearning.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/6-UnsupervisedLearning.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Unsupervised learning</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">k-Means</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-case">Example case</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-2d-sample-data-using-sample-data-generator">Create 2D sample data using sample data generator</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-kmeans">Apply KMeans</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-expectation-maximization-algorithm">The expectation Maximization algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-to-digits-recognition">Application to digits recognition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-assumptions">k-Means assumptions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">Gaussian mixture models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">Lambda functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-em-for-gmm-in-one-dimensional-case">Example of EM for GMM in one dimensional case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-data">Sampling data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trial-for-sampling-random-characters">Trial for sampling random characters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-results-of-pca-forward-and-inverse-transformation-and-gmm-random-sampling">The results of PCA forward and inverse transformation and GMM random sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-clustering-methods">Other clustering methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="unsupervised-learning">
+<h1>Unsupervised learning<a class="headerlink" href="#unsupervised-learning" title="Link to this heading">#</a></h1>
+<p>This lecture covers the following topics</p>
+<ol class="arabic simple">
+<li><p>Dimensionality reduction</p></li>
+<li><p>Principal Component Analysis (<strong>PCA</strong>): PCA is important and fundamental. It will be covered and needs to be understood very well.</p></li>
+<li><p><em>Independent Component Analysis (<strong>ICA</strong>)</em>: Will be just shortly mentioned for curiosity</p></li>
+<li><p>Manifold learning, Multi-Dimensional Scaling (<strong>MDS</strong>) and Locally Linear Embedding (LLE):* will be introduced shortly, but not studied in detail.</p></li>
+<li><p>t-distributed Stochastic Neighbor Embedding (<strong>t-SNE</strong>), introduced, but we do not go into details</p></li>
+<li><p>Clustering</p></li>
+<li><p><strong>k-Means</strong> and explanation of Expectation Maximization (<strong>E-M</strong>) algorithm.</p></li>
+<li><p>Gaussian mixture model, <strong>GMM</strong></p></li>
+<li><p>Overview of other methods</p></li>
+</ol>
+<p>Read more details from the <a class="reference external" href="https://jakevdp.github.io/PythonDataScienceHandbook/index.html">Python Data Science Handbook</a> by Jake VanderPlas published under Creative Commons <a class="reference external" href="https://creativecommons.org/licenses/by-nc-nd/3.0/us/legalcode">CC-BY-NC-ND license</a>.</p>
+<p><img alt="Python Data Science Handbook" src="kuvat/PDSH-cover-small.png" /></p>
+<section id="clustering">
+<h2>Clustering<a class="headerlink" href="#clustering" title="Link to this heading">#</a></h2>
+<p>A Cluster</p>
+<blockquote>
+<div><p>A group of the same or similar elements gathered or occurring closely together.</p>
+</div></blockquote>
+<p>To consider the concept of similarity, we need to define a metric, which measures the similarity between objects. Assume that there are apples and oranges on the table. Human observer usually thinks that oranges are more similar with each other than with oranges and vice versa. What is the metrics that a human uses for making this decision? It could be for example the colour, surface texture and shape.</p>
+<p>To implement a machine learning algorith performing the same task, one could measure the hue of the color (H), and the parameter describing surface roughness (S) and then plot each apple and orange in the orthogonal 2D H-S coordinates. The similarity between objects can be for example the euqlidean distance <span class="math notranslate nohighlight">\(D_e=\sqrt{\Delta H^2 + \Delta S^2}\)</span>, between objects in this 2D space. Then probably the distance inside group of oranges and group of apples would be smaller than the distances between apples and oranges. Therefore apples could form a dense group and oranges another dense group, and the distance between the groups could be larger.</p>
+<p><img alt="ApplesandOranges" src="kuvat/ApplesAndOranges.png" /></p>
+<p>The purpose of the clustering is to recognizes a dense group of points surrounded by more sparsely populated areas. The clustering algorith clusters the data in the design matrix <span class="math notranslate nohighlight">\(X=[H^T, S^T]\)</span> into cluster memberships, <span class="math notranslate nohighlight">\(c_i\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+   \begin{bmatrix}
+   c_1 \\
+   c_2 \\
+   \vdots \\
+   c_n
+   \end{bmatrix}
+   = f 
+   \left( \begin{bmatrix}
+     x_{11} &amp; x_{12} &amp; x_{13} &amp; \dots  &amp; x_{1p} \\
+     x_{21} &amp; x_{22} &amp; x_{23} &amp; \dots  &amp; x_{2p} \\
+     \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\
+     x_{n1} &amp; x_{n2} &amp; x_{n3} &amp; \dots  &amp; x_{np}
+   \end{bmatrix} \right)
+\end{split}\]</div>
+<ul class="simple">
+<li><p>The clustering does not need any training data, so it is an unsupervised method.</p></li>
+<li><p>The result of clustering is just clusters and their memberships, the algorithm does not name the clusters nor understand what are the objects in certain cluster.</p></li>
+<li><p>Many clustering methods needs the number of clusters to be given <em>a priori</em>.</p></li>
+</ul>
+</section>
+<section id="k-means">
+<h2>k-Means<a class="headerlink" href="#k-means" title="Link to this heading">#</a></h2>
+<p>k-Means is a simple clustering algorithms based on arithmetic distances and Expectation-Maximization (E-M) algorithm. It is simple and usefull in many cases.</p>
+<p>The K-means algorithm aims to choose cluster centers (centroids) that minimise the inertia, or within-cluster sum-of-squares criterion presented by the following objective function, <span class="math notranslate nohighlight">\(J\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+   J =\sum_{j=1}^{k} \sum_{i=1}^{n} || x_i - c_j ||,
+\]</div>
+<p>where, <span class="math notranslate nohighlight">\(x_i\)</span> is a sample (case) and <span class="math notranslate nohighlight">\(c_j\)</span> is the centroid of the cluster, <span class="math notranslate nohighlight">\(n\)</span> is the number of samples and <span class="math notranslate nohighlight">\(k\)</span> is the number of clusters. <span class="math notranslate nohighlight">\(|| x_i - c_j ||\)</span> is the arithmetic distance from a sample to the nearest centroid <span class="math notranslate nohighlight">\(c_j\)</span>. The sample <span class="math notranslate nohighlight">\(x_i\)</span> is said to belong to cluster <span class="math notranslate nohighlight">\(j\)</span> iff <span class="math notranslate nohighlight">\(c_j\)</span> is the nearest cluster center.</p>
+<p>Inertia can be recognized as a measure of how internally coherent clusters are. It suffers from various drawbacks:</p>
+<ul class="simple">
+<li><p>It is assumed that clusters are convex and isotropic, which is not always the case. It responds poorly to elongated clusters, or manifolds with irregular shapes.</p></li>
+<li><p>Inertia is not a normalized metric: we just know that lower values are better and zero is optimal. But in very high-dimensional spaces, Euclidean distances tend to become inflated (this is an instance of the so-called “curse of dimensionality”). Running a dimensionality reduction algorithm such as Principal component analysis (PCA) prior to k-means clustering can alleviate this problem and speed up the computations.</p></li>
+<li><p>k-Means uses euqlidean distance, and it is therefore necessary to normalize the input variables before clustering</p></li>
+<li><p>The correlation between variables is a problem, and therefore it is good to decorrelate the variables first, for example using PCA</p></li>
+</ul>
+<section id="example-case">
+<h3>Example case<a class="headerlink" href="#example-case" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%</span><span class="k">matplotlib</span> inline
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># for plot styling</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">1</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">get_ipython</span><span class="p">()</span><span class="o">.</span><span class="n">run_line_magic</span><span class="p">(</span><span class="s1">&#39;matplotlib&#39;</span><span class="p">,</span> <span class="s1">&#39;inline&#39;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span><span class="p">;</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>  <span class="c1"># for plot styling</span>
+
+<span class="nn">File ~/Library/Caches/pypoetry/virtualenvs/applied-machine-learning-AxrkMKCt-py3.13/lib/python3.13/site-packages/IPython/core/interactiveshell.py:2482,</span> in <span class="ni">InteractiveShell.run_line_magic</span><span class="nt">(self, magic_name, line, _stack_depth)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2480</span>     <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;local_ns&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_local_scope</span><span class="p">(</span><span class="n">stack_depth</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2481</span> <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">builtin_trap</span><span class="p">:</span>
+<span class="ne">-&gt; </span><span class="mi">2482</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">2484</span> <span class="c1"># The code below prevents the output from being displayed</span>
+<span class="g g-Whitespace">   </span><span class="mi">2485</span> <span class="c1"># when using magics with decorator @output_can_be_silenced</span>
+<span class="g g-Whitespace">   </span><span class="mi">2486</span> <span class="c1"># when the last Python token in the expression is a &#39;;&#39;.</span>
+<span class="g g-Whitespace">   </span><span class="mi">2487</span> <span class="k">if</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">magic</span><span class="o">.</span><span class="n">MAGIC_OUTPUT_CAN_BE_SILENCED</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+
+<span class="nn">File ~/Library/Caches/pypoetry/virtualenvs/applied-machine-learning-AxrkMKCt-py3.13/lib/python3.13/site-packages/IPython/core/magics/pylab.py:103,</span> in <span class="ni">PylabMagics.matplotlib</span><span class="nt">(self, line)</span>
+<span class="g g-Whitespace">     </span><span class="mi">98</span>     <span class="nb">print</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span>         <span class="s2">&quot;Available matplotlib backends: </span><span class="si">%s</span><span class="s2">&quot;</span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span>         <span class="o">%</span> <span class="n">_list_matplotlib_backends_and_gui_loops</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">101</span>     <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span> <span class="k">else</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">103</span>     <span class="n">gui</span><span class="p">,</span> <span class="n">backend</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shell</span><span class="o">.</span><span class="n">enable_matplotlib</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">104</span>     <span class="bp">self</span><span class="o">.</span><span class="n">_show_matplotlib_backend</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">gui</span><span class="p">,</span> <span class="n">backend</span><span class="p">)</span>
+
+<span class="nn">File ~/Library/Caches/pypoetry/virtualenvs/applied-machine-learning-AxrkMKCt-py3.13/lib/python3.13/site-packages/IPython/core/interactiveshell.py:3667,</span> in <span class="ni">InteractiveShell.enable_matplotlib</span><span class="nt">(self, gui)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3664</span>     <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib_inline.backend_inline</span>
+<span class="g g-Whitespace">   </span><span class="mi">3666</span> <span class="kn">from</span><span class="w"> </span><span class="nn">IPython.core</span><span class="w"> </span><span class="kn">import</span> <span class="n">pylabtools</span> <span class="k">as</span> <span class="n">pt</span>
+<span class="ne">-&gt; </span><span class="mi">3667</span> <span class="n">gui</span><span class="p">,</span> <span class="n">backend</span> <span class="o">=</span> <span class="n">pt</span><span class="o">.</span><span class="n">find_gui_and_backend</span><span class="p">(</span><span class="n">gui</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">pylab_gui_select</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3669</span> <span class="k">if</span> <span class="n">gui</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+<span class="g g-Whitespace">   </span><span class="mi">3670</span>     <span class="c1"># If we have our first gui selection, store it</span>
+<span class="g g-Whitespace">   </span><span class="mi">3671</span>     <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pylab_gui_select</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+
+<span class="nn">File ~/Library/Caches/pypoetry/virtualenvs/applied-machine-learning-AxrkMKCt-py3.13/lib/python3.13/site-packages/IPython/core/pylabtools.py:338,</span> in <span class="ni">find_gui_and_backend</span><span class="nt">(gui, gui_select)</span>
+<span class="g g-Whitespace">    </span><span class="mi">321</span> <span class="k">def</span><span class="w"> </span><span class="nf">find_gui_and_backend</span><span class="p">(</span><span class="n">gui</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">gui_select</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="g g-Whitespace">    </span><span class="mi">322</span><span class="w">     </span><span class="sd">&quot;&quot;&quot;Given a gui string return the gui and mpl backend.</span>
+<span class="g g-Whitespace">    </span><span class="mi">323</span><span class="sd"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">324</span><span class="sd">     Parameters</span>
+<span class="sd">   (...)</span>
+<span class="g g-Whitespace">    </span><span class="mi">335</span><span class="sd">     &#39;WXAgg&#39;,&#39;Qt4Agg&#39;,&#39;module://matplotlib_inline.backend_inline&#39;,&#39;agg&#39;).</span>
+<span class="g g-Whitespace">    </span><span class="mi">336</span><span class="sd">     &quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">338</span>     <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span>     <span class="k">if</span> <span class="n">_matplotlib_manages_backends</span><span class="p">():</span>
+<span class="g g-Whitespace">    </span><span class="mi">341</span>         <span class="n">backend_registry</span> <span class="o">=</span> <span class="n">matplotlib</span><span class="o">.</span><span class="n">backends</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">backend_registry</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<section id="create-2d-sample-data-using-sample-data-generator">
+<h4>Create 2D sample data using sample data generator<a class="headerlink" href="#create-2d-sample-data-using-sample-data-generator" title="Link to this heading">#</a></h4>
+<p>Import <code class="docutils literal notranslate"><span class="pre">make_blobs</span></code> from <code class="docutils literal notranslate"><span class="pre">datasets</span></code> library and generate a random dataset, which contain 4 clusters of data. Each cluster contains 2D normal distributed data with specified standard deviation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_blobs</span>
+
+<span class="c1"># Try with random_state=0 or 5</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/96d46392aad93a383d5cc4087e0de04d4e7459edc362f01b88e7f104872313de.png" src="_images/96d46392aad93a383d5cc4087e0de04d4e7459edc362f01b88e7f104872313de.png" />
+</div>
+</div>
+</section>
+<section id="apply-kmeans">
+<h4>Apply KMeans<a class="headerlink" href="#apply-kmeans" title="Link to this heading">#</a></h4>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">kmeans</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+<span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_kmeans</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">25</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+
+<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">cluster_centers_</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/da0e7d8e3ae40d4666704f20de05ca854fb2efd0d74f948a41e64d8562d43a17.png" src="_images/da0e7d8e3ae40d4666704f20de05ca854fb2efd0d74f948a41e64d8562d43a17.png" />
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="the-expectation-maximization-algorithm">
+<h2>The expectation Maximization algorithm<a class="headerlink" href="#the-expectation-maximization-algorithm" title="Link to this heading">#</a></h2>
+<p>The expecation maximization algorithms is an iterative method for optimisation of the objective function. It consists of alternating expectation and maximization steps.</p>
+<p>The following code shows how the expectation and maximization steps iterate in finding optimal k-Means solution. In k-Means, the expectation is simply the evaluation of the objective function, to sum of distances from samples to the nearest cluster centers. The maximization step is made by moving the cluster center to better position to the center point of the current cluster content. The algorithms is initialized by given a number of cluster centers or at least number of clusters. Often the initial positions of cluster centers will be initialized randomly. The high densities of samples starts attracting the cluster centers, and at the same time, the competition of samples repels cluster centers farther away from each other. The algorithm may converge to different solutions if initialized differently.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># This code is from Python Data Science Handbook</span>
+<span class="c1"># https://jakevdp.github.io/PythonDataScienceHandbook/06.00-figure-code.html#Expectation-Maximization</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">pairwise_distances_argmin</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_points</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span>
+               <span class="n">s</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_centers</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">1.0</span><span class="p">):</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+               <span class="n">c</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">200</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span>
+               <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
+               <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span> <span class="o">*</span> <span class="n">factor</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_ax</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">gs</span><span class="p">):</span>
+    <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">)</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">xaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullFormatter</span><span class="p">())</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">yaxis</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">NullFormatter</span><span class="p">())</span>
+    <span class="k">return</span> <span class="n">ax</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">𝑓X</span><span class="p">,</span> <span class="n">y_true</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span>
+                   <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.60</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">GridSpec</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="n">left</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.95</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">ax0</span> <span class="o">=</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="p">:</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">ax0</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s2">&quot;Random Initialization&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax0</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+     <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+<span class="n">draw_points</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="s1">&#39;gray&#39;</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">draw_centers</span><span class="p">(</span><span class="n">ax0</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+    <span class="n">ax1</span> <span class="o">=</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">gs</span><span class="p">[:</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">6</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">])</span>
+    <span class="n">ax2</span> <span class="o">=</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">gs</span><span class="p">[</span><span class="mi">2</span><span class="p">:,</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">:</span><span class="mi">7</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">i</span><span class="p">])</span>
+    
+    <span class="c1"># E-step</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">pairwise_distances_argmin</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">centers</span><span class="p">)</span>
+    <span class="n">draw_points</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">draw_centers</span><span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">centers</span><span class="p">)</span>
+    
+    <span class="c1"># M-step</span>
+    <span class="n">new_centers</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">X</span><span class="p">[</span><span class="n">y_pred</span> <span class="o">==</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)])</span>
+    <span class="n">draw_points</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+    <span class="n">draw_centers</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">draw_centers</span><span class="p">(</span><span class="n">ax2</span><span class="p">,</span> <span class="n">new_centers</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="n">ax2</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">new_centers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">centers</span><span class="p">[</span><span class="n">i</span><span class="p">],</span>
+                     <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s1">&#39;-&gt;&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
+    
+    <span class="c1"># Finish iteration</span>
+    <span class="n">centers</span> <span class="o">=</span> <span class="n">new_centers</span>
+    <span class="n">ax1</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;E-Step&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax1</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+    <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.95</span><span class="p">,</span> <span class="mf">0.95</span><span class="p">,</span> <span class="s2">&quot;M-Step&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">ax2</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+
+
+<span class="c1"># Final E-step    </span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">pairwise_distances_argmin</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">centers</span><span class="p">)</span>
+<span class="n">axf</span> <span class="o">=</span> <span class="n">make_ax</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">gs</span><span class="p">[:</span><span class="mi">4</span><span class="p">,</span> <span class="o">-</span><span class="mi">4</span><span class="p">:])</span>
+<span class="n">draw_points</span><span class="p">(</span><span class="n">axf</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">draw_centers</span><span class="p">(</span><span class="n">axf</span><span class="p">,</span> <span class="n">centers</span><span class="p">,</span> <span class="n">factor</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">axf</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.98</span><span class="p">,</span> <span class="mf">0.98</span><span class="p">,</span> <span class="s2">&quot;Final Clustering&quot;</span><span class="p">,</span> <span class="n">transform</span><span class="o">=</span><span class="n">axf</span><span class="o">.</span><span class="n">transAxes</span><span class="p">,</span>
+         <span class="n">ha</span><span class="o">=</span><span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/2cf6e358338c4dc89e6474ab219f8e572a131582d3b8d36b9df6e592deabdaad.png" src="_images/2cf6e358338c4dc89e6474ab219f8e572a131582d3b8d36b9df6e592deabdaad.png" />
+</div>
+</div>
+<section id="application-to-digits-recognition">
+<h3>Application to digits recognition<a class="headerlink" href="#application-to-digits-recognition" title="Link to this heading">#</a></h3>
+<p>The digits recognition may be too high dimensional for direct k-Means clustering. Therefore preprocessing with PCA or t-SNE could be good ideas. Let’s try all three options to find out</p>
+<ol class="arabic simple">
+<li><p>Apply k-Means to raw 64 dimensional data</p></li>
+<li><p>Apply linear PCA preprocessing, reduce to 2-dimensions and apply k-Means</p></li>
+<li><p>Apply non-linear t-SNE preprocessing, reduce to 2-dimensions and apply k-Means</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.cluster</span><span class="w"> </span><span class="kn">import</span> <span class="n">KMeans</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.manifold</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSNE</span>
+
+<span class="c1"># Load the data and instantiate the k-mean clustering for three cases </span>
+<span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+<span class="n">kmeans_raw</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">kmeans_pca</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">kmeans_tsne</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Instantiate the projection modules</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">tsne</span><span class="o">=</span><span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Make projections on the data</span>
+<span class="n">projected_pca</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">projected_tsne</span><span class="o">=</span><span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Apply kMeans to three case</span>
+<span class="c1">#  1) Directly to the input data</span>
+<span class="c1">#  2) PCA projected data</span>
+<span class="c1">#  3) tSNE projected data</span>
+<span class="n">kmeans_raw</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">y_km_raw</span> <span class="o">=</span> <span class="n">kmeans_raw</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">kmeans_pca</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">projected_pca</span><span class="p">)</span>
+<span class="n">y_km_pca</span> <span class="o">=</span> <span class="n">kmeans_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_pca</span><span class="p">)</span>
+
+<span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">projected_tsne</span><span class="p">)</span>
+<span class="n">y_km_tsne</span> <span class="o">=</span> <span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_tsne</span><span class="p">)</span>
+
+
+<span class="c1"># Plot them all</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">projected</span><span class="o">=</span><span class="n">projected_pca</span>
+<span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans_raw</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans_raw</span><span class="o">.</span><span class="n">cluster_centers_</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">projected</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projected</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_kmeans</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Predictions from raw data (Does not work)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First principal component&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">projected</span><span class="o">=</span><span class="n">projected_pca</span>
+<span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_pca</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans_pca</span><span class="o">.</span><span class="n">cluster_centers_</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">projected</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projected</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_kmeans</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Predictions from PCA data (Better)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First principal component&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">projected</span><span class="o">=</span><span class="n">projected_tsne</span>
+<span class="n">y_kmeans</span> <span class="o">=</span> <span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_tsne</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">cluster_centers_</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">projected</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projected</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y_kmeans</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;Predictions from t-SNE data (Nice)&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First t-SNE component&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/sklearn/manifold/_t_sne.py:780: FutureWarning: The default initialization in TSNE will change from &#39;random&#39; to &#39;pca&#39; in 1.2.
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/sklearn/manifold/_t_sne.py:790: FutureWarning: The default learning rate in TSNE will change from 200.0 to &#39;auto&#39; in 1.2.
+  warnings.warn(
+</pre></div>
+</div>
+<img alt="_images/723e6881d7e2914ad9aaab2a8be81b68c940bcdd5ca9ded8cdb3a842fe308684.png" src="_images/723e6881d7e2914ad9aaab2a8be81b68c940bcdd5ca9ded8cdb3a842fe308684.png" />
+<img alt="_images/fece9cd255e8f6cd0f7c6b709840adabfb6988a29c9d9aa3f468989affb7d32e.png" src="_images/fece9cd255e8f6cd0f7c6b709840adabfb6988a29c9d9aa3f468989affb7d32e.png" />
+<img alt="_images/6b0aa95c7ba7771cd405ffd59a88bafcbd75ead841758f787006b550a241fb84.png" src="_images/6b0aa95c7ba7771cd405ffd59a88bafcbd75ead841758f787006b550a241fb84.png" />
+</div>
+</div>
+<p>The cluster centers can be read from the kmeans object</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">cluster_centers_</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>array([[ -2.6414576 , -22.65876   ],
+       [  7.770095  ,  21.542501  ],
+       [-64.69279   ,   0.88018733],
+       [ 51.139     ,  -3.0133724 ],
+       [-26.832142  ,  34.328938  ],
+       [ -1.3581252 , -60.605473  ],
+       [  8.008899  ,  50.52936   ],
+       [ 14.09285   ,   3.2191489 ],
+       [ 20.802961  , -21.694296  ],
+       [-24.811676  ,  -9.36181   ]], dtype=float32)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can compare if the clustering is matching to the true digits by plotting the confusion matrices:</p>
+<p>The confusion matrix <span class="math notranslate nohighlight">\(C_{i,j}\)</span>, can be used for comparing the predicted values with the true values. In confusion matrix, the true classes are in rows and predicted classes in columns. The numbers in the matrix in  column <span class="math notranslate nohighlight">\(C_{i,j}\)</span> shows how many values in true class <span class="math notranslate nohighlight">\(i\)</span> are predicted in to belong in class <span class="math notranslate nohighlight">\(j\)</span>. In an ideal case all values are in diagonal, meaning that the predicted classes are true classes for all predicted values.</p>
+<p>In case of clustering, the order of clusters is not necessarily the same than the order of true classes. In this case, the best solution would be that all the values in each row belong to just one unique cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">#plt.scatter(digits.target, y_kmeans)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Raw data&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_raw</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;PCA&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_pca</span><span class="p">)))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;t-SNE&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_tsne</span><span class="p">)))</span>
+
+<span class="c1"># Visualize two confusion matrix as heatmaps</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_pca</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_pca</span><span class="p">)),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cluster&#39;</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Digit&#39;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">kmeans_tsne</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected_tsne</span><span class="p">)),</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">&#39;Cluster&#39;</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">&#39;Digit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Raw data
+[[  0   1   0   0 177   0   0   0   0   0]
+ [ 99   0   1   0   0   1  55   2  24   0]
+ [  8   0  13   2   1   0   2   0 148   3]
+ [  7   0 157   9   0   2   0   0   1   7]
+ [  4 164   0   0   0   0   5   0   0   8]
+ [  0   2   1  42   0 136   0   1   0   0]
+ [  2   0   0   0   1   0   1 177   0   0]
+ [  2   0   0   0   0   1   2   0   0 174]
+ [103   0   4  48   0   4   6   2   3   4]
+ [  2   0   7 138   0   6  20   0   0   7]]
+PCA
+[[  1   0  12   0   0 160   1   0   4   0]
+ [ 29   9   0   0  87   0   4   0   6  47]
+ [ 34   7   0   3   0   0   0 115   4  14]
+ [ 11  12   0  98   0   0   0  41  21   0]
+ [  0   3  24   0   5   0 144   0   0   5]
+ [ 46  25   5   1   0   6   2   3  46  48]
+ [  0   0 150   0   0   8  21   0   0   2]
+ [  1 116   0   0  21   0   1   1   0  39]
+ [ 71  24   0   0   4   0   1   4   8  62]
+ [ 17   9   1  30   0   0   0   8 105  10]]
+t-SNE
+[[  0   0 178   0   0   0   0   0   0   0]
+ [  0 147   0  27   0   0   0   8   0   0]
+ [  0   0   0 167   0   0   0  10   0   0]
+ [  0   0   0   0   0   0   1   0 180   2]
+ [  0   0   0   0 178   0   3   0   0   0]
+ [  1   0   0   0   0   1   0   0   0 180]
+ [  0   0   0   0   0 180   0   1   0   0]
+ [  0   0   0   0   0   0 179   0   0   0]
+ [  0   4   0   4   0   0   0 166   0   0]
+ [143  21   0   0   0   0  10   2   2   2]]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Text(449.73636363636354, 0.5, &#39;Digit&#39;)
+</pre></div>
+</div>
+<img alt="_images/56a9ed7dc435f0a7e48d67c03d92f111676ef63444eab07f057a022cb345fad1.png" src="_images/56a9ed7dc435f0a7e48d67c03d92f111676ef63444eab07f057a022cb345fad1.png" />
+</div>
+</div>
+</section>
+<section id="k-means-assumptions">
+<h3>k-Means assumptions<a class="headerlink" href="#k-means-assumptions" title="Link to this heading">#</a></h3>
+<p>Take a look at the graphical representation of <a class="reference external" href="https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_assumptions.html">k-Means assumptions</a>.</p>
+</section>
+</section>
+<section id="gaussian-mixture-models">
+<h2>Gaussian mixture models<a class="headerlink" href="#gaussian-mixture-models" title="Link to this heading">#</a></h2>
+<p>Gaussian mixture model builds, using mixtures of normal distributions, a combined probability distribution which fit to the data is maximized using Epectation Maximization algorithm.</p>
+<p>The steps in GMM are very similar than in k-Means.</p>
+<ol class="arabic simple">
+<li><p>Initialize k normal distributions, using for example random mean and constant standard deviations</p></li>
+<li><p>Repeat until convergence</p></li>
+<li><p>Expectation step: Calculate the probability of each sample <span class="math notranslate nohighlight">\(x_i\)</span> belonging to each cluster <span class="math notranslate nohighlight">\(c_j\)</span>, and assign samples to those clusters where the probability, or expected membership, is the highest.</p></li>
+<li><p>Maximization: Calculate the mean values and standard deviations of the members of each cluster and update the means and deviations of each distribution</p></li>
+</ol>
+<section id="lambda-functions">
+<h3>Lambda functions<a class="headerlink" href="#lambda-functions" title="Link to this heading">#</a></h3>
+<p>Small unnamed functions are sometimes quite convenient in programming. They are often called as <a class="reference external" href="https://en.wikipedia.org/wiki/Anonymous_function">lambda functions</a>, and they can be used in many programming languages. This is how they are defined in Python:</p>
+<ul class="simple">
+<li><p>The function is defined using keyword <code class="docutils literal notranslate"><span class="pre">lambda</span></code></p></li>
+<li><p>After the keyword, list the parameters for the function and end the statement with colon, like <code class="docutils literal notranslate"><span class="pre">lambda</span> <span class="pre">x,y:</span></code></p></li>
+<li><p>Then define the body of the function in one line. The value of the statement is the value returned by the function. No return statetement is used.</p></li>
+<li><p>Use function directly, or assign it to the variable, which then becomes this function</p></li>
+</ul>
+<p>The following statements creates a function which squares a value
+<code class="docutils literal notranslate"><span class="pre">square</span> <span class="pre">=</span> <span class="pre">lambda</span> <span class="pre">x:</span> <span class="pre">x**2</span></code></p>
+</section>
+<section id="example-of-em-for-gmm-in-one-dimensional-case">
+<h3>Example of EM for GMM in one dimensional case<a class="headerlink" href="#example-of-em-for-gmm-in-one-dimensional-case" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Scientific python includes very convenient object form normal distributions</span>
+<span class="c1"># which supports providing random samples, probability density function (PDF)</span>
+<span class="c1"># and cumulative distribution function (CDF)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">norm</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">## Generate 20 normal distributed random samples mean=5, std=1</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">10</span>
+<span class="n">datax</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">),</span> <span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)])</span>
+<span class="n">datay</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">N</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">datax</span><span class="p">,</span> <span class="n">datay</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">)</span>
+
+<span class="c1">## Define two normal distributions, means (2,8) stds=(0.7,0.7)</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">g1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;b--&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">g2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span><span class="s1">&#39;r--&#39;</span><span class="p">)</span>
+
+<span class="c1"># Find the probabilities that the samples belong to cluster 1 or 2</span>
+<span class="n">p1</span><span class="o">=</span><span class="n">g1</span><span class="p">(</span><span class="n">datax</span><span class="p">)</span>
+<span class="n">p2</span><span class="o">=</span><span class="n">g2</span><span class="p">(</span><span class="n">datax</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/03f19ecc17d703653865ab396e2c76964775b2a4bc66c4a61ae20cdb51aa05f1.png" src="_images/03f19ecc17d703653865ab396e2c76964775b2a4bc66c4a61ae20cdb51aa05f1.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">### EXPECTATION: Assign to the clusters so that expectation is maximized</span>
+<span class="n">c1</span> <span class="o">=</span> <span class="n">datax</span><span class="p">[</span><span class="n">p1</span><span class="o">&gt;=</span><span class="n">p2</span><span class="p">]</span>
+<span class="n">c2</span> <span class="o">=</span> <span class="n">datax</span><span class="p">[</span><span class="n">p1</span><span class="o">&lt;</span><span class="n">p2</span><span class="p">]</span>
+
+<span class="c1"># Plot the membership</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c1</span><span class="p">)),</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">c2</span><span class="p">)),</span> <span class="n">s</span><span class="o">=</span><span class="mi">80</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1">### MAXIMIZATION: Update the distributions</span>
+<span class="n">g1</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">c1</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">c1</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+<span class="n">g2</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">norm</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">loc</span><span class="o">=</span><span class="n">c2</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="n">scale</span><span class="o">=</span><span class="n">c2</span><span class="o">.</span><span class="n">std</span><span class="p">())</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">g1</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;b-&#39;</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">g2</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s1">&#39;r-&#39;</span><span class="p">)</span>
+
+<span class="c1"># Then repeat the expectation and maximization steps, until converged</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7ff5d1a544f0&gt;,
+ &lt;matplotlib.lines.Line2D at 0x7ff5d1a54610&gt;]
+</pre></div>
+</div>
+<img alt="_images/21e0bd363592556872bee7654c89142744f960ccea56bb421f716709a6dfa94a.png" src="_images/21e0bd363592556872bee7654c89142744f960ccea56bb421f716709a6dfa94a.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>EM algorithm for GMM works similar way in multidmensional case.</p></li>
+<li><p>It supports different deviation for each groups</p></li>
+<li><p>In multidimensional case, the std or variance can be calculated it three different ways</p>
+<ul>
+<li><p>One dimensional variance: assume isotropic cluster distribution (circular/spherical distributions)</p></li>
+<li><p>Calculate along coordinate axis: elliptical / ellipsoid distirbutions, whose axis are aligned with coordinate axis</p></li>
+<li><p>Calculate full covariance: elliptical / ellipsoidal distributions in any angle</p></li>
+</ul>
+</li>
+<li><p>Full covariance needs more parameters and therefore more training data, whereas one dimensional variance can be calculated with little training samples</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_digits</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.mixture</span><span class="w"> </span><span class="kn">import</span> <span class="n">GaussianMixture</span>
+
+
+<span class="n">digits</span> <span class="o">=</span> <span class="n">load_digits</span><span class="p">()</span>
+
+<span class="c1"># Instantiate the projection modules</span>
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">tsne</span><span class="o">=</span><span class="n">TSNE</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Make projections on the data</span>
+<span class="n">useTSNE</span><span class="o">=</span><span class="kc">True</span>
+<span class="k">if</span> <span class="n">useTSNE</span><span class="p">:</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;t-SNE&#39;</span>
+    <span class="n">projected</span><span class="o">=</span><span class="n">tsne</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">method</span><span class="o">=</span><span class="s1">&#39;PCA&#39;</span>
+    <span class="n">projected</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+    
+<span class="c1"># Fit the model</span>
+<span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span>
+
+<span class="c1"># Predict clusters</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span>
+<span class="n">centers</span> <span class="o">=</span> <span class="n">gmm</span><span class="o">.</span><span class="n">means_</span>
+
+<span class="c1"># Plot the data</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">projected</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">projected</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">centers</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">centers</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">marker</span><span class="o">=</span><span class="s1">&#39;+&#39;</span><span class="p">);</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;GMM Predictions using </span><span class="si">%s</span><span class="s1"> projection&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">method</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;First t-SNE component&#39;</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">,</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">projected</span><span class="p">)))</span>
+
+<span class="c1">#plt.figure()</span>
+<span class="c1">#sns.heatmap(confusion_matrix(digits.target, gmm.predict(projected)))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/opt/anaconda3/lib/python3.9/site-packages/sklearn/manifold/_t_sne.py:780: FutureWarning: The default initialization in TSNE will change from &#39;random&#39; to &#39;pca&#39; in 1.2.
+  warnings.warn(
+/opt/anaconda3/lib/python3.9/site-packages/sklearn/manifold/_t_sne.py:790: FutureWarning: The default learning rate in TSNE will change from 200.0 to &#39;auto&#39; in 1.2.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[  0   0 178   0   0   0   0   0   0   0]
+ [  0  99   0   0   0   0   0  27   0  56]
+ [  0  10   0   0   0   0   0 167   0   0]
+ [  0  13   0   0   2   1 167   0   0   0]
+ [178   3   0   0   0   0   0   0   0   0]
+ [  0   0   0   1 179   0   0   0   2   0]
+ [  0   0   0 181   0   0   0   0   0   0]
+ [  0   0   0   0   0 179   0   0   0   0]
+ [  0 173   0   0   0   0   0   0   0   1]
+ [  0   4   0   0   2  10   2   0 142  20]]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/v0/s3zr2ztd3ks4prxb7dbcng4w0000gn/T/ipykernel_26230/714296705.py:29: MatplotlibDeprecationWarning: Auto-removal of grids by pcolor() and pcolormesh() is deprecated since 3.5 and will be removed two minor releases later; please call grid(False) first.
+  plt.colorbar()
+</pre></div>
+</div>
+<img alt="_images/7ecd4897a4d3d3b15a86a0f80b618e289c9af1ee9380b3adaf7d1dabb8963409.png" src="_images/7ecd4897a4d3d3b15a86a0f80b618e289c9af1ee9380b3adaf7d1dabb8963409.png" />
+</div>
+</div>
+<p>GMM is probabilistic model supporting also prediction probabilities. In other words, it can tell what is the probability of a certain sample in belonging to a certain cluster. For example let’s calculated all probabilities and then visualize the probabilities of sample 19 in belonging to certain clusters.</p>
+<p>Due to stochastic nature of t-SNE and GMM, the results may vary in each run of GMM or t-SNE.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">i</span><span class="o">=</span><span class="mi">19</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span> <span class="n">gmm</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">projected</span><span class="p">)[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;BarContainer object of 10 artists&gt;
+</pre></div>
+</div>
+<img alt="_images/7badd4e9c70ad5ebf854953cd67355109bc016378869ce2f166cdaed58afd44d.png" src="_images/7badd4e9c70ad5ebf854953cd67355109bc016378869ce2f166cdaed58afd44d.png" />
+</div>
+</div>
+</section>
+<section id="sampling-data">
+<h3>Sampling data<a class="headerlink" href="#sampling-data" title="Link to this heading">#</a></h3>
+<p>The Gaussian Mixture Model is actually a probabilistic density model of the data. It can be therefore used for sampling new data samples from the domain of the original data. Those samples are distributed in the same way than the original data, and the samples are drawn from each cluster.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Sample 1000 samples</span>
+<span class="n">data</span><span class="p">,</span><span class="n">digit</span><span class="o">=</span><span class="n">gmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">r</span><span class="o">=</span><span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span><span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">])</span>
+<span class="n">r</span><span class="p">[</span><span class="s1">&#39;digit&#39;</span><span class="p">]</span><span class="o">=</span><span class="n">digit</span>
+
+<span class="c1">#sns.displot(</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">jointplot</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">=</span><span class="n">r</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> 
+    <span class="n">hue</span> <span class="o">=</span> <span class="s2">&quot;digit&quot;</span><span class="p">,</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;kde&quot;</span><span class="p">,</span>
+    <span class="n">palette</span><span class="o">=</span><span class="s1">&#39;rainbow&#39;</span>
+<span class="p">)</span>
+<span class="c1">#plt.axis([-40, 40, -40, 40])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.JointGrid at 0x7ff5e0e4c580&gt;
+</pre></div>
+</div>
+<img alt="_images/d74da5ec9dfdfc0cb1a275493893e7c3a145b6b803c3005a63e3630c1e6e9625.png" src="_images/d74da5ec9dfdfc0cb1a275493893e7c3a145b6b803c3005a63e3630c1e6e9625.png" />
+</div>
+</div>
+</section>
+<section id="trial-for-sampling-random-characters">
+<h3>Trial for sampling random characters<a class="headerlink" href="#trial-for-sampling-random-characters" title="Link to this heading">#</a></h3>
+<p>Having trained the GMM model, we could draw random characters from the distribution of original data, and transform them back to 64-dimensional feature space. This can be only done when using PCA, since there is no inverse transform for manifold methods.</p>
+<p>Lets first recall the code which was able to print the characters, and define a function of it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">printCharacters</span><span class="p">(</span><span class="n">characters</span><span class="p">):</span>
+    <span class="c1"># First create a array of 10 subplots in one row</span>
+    <span class="n">fig</span><span class="p">,</span><span class="n">axn</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+
+    <span class="c1"># Select one example of each character and plot them in separate subplot</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="c1"># Select one subplot. axn can contain a two-dimensional array</span>
+        <span class="c1"># of subplots. flatten() shrinks the structure </span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">axn</span><span class="o">.</span><span class="n">flatten</span><span class="p">()[</span><span class="n">i</span><span class="p">]</span>
+
+        <span class="c1"># Plot the data as an 8x8 array, using grey colormap</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">characters</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)),</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;Greys&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Disable the numbers in x- and y-axes by setting them as empty lists</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xticks</span><span class="p">([])</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_yticks</span><span class="p">([])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then code below does the following</p>
+<ol class="arabic simple">
+<li><p>Prints the original digits</p></li>
+<li><p>converts the digits into 4-dimensional subspace with PCA</p></li>
+<li><p>Converts the digits back to feature space and prints them</p></li>
+<li><p>Trains the GMM model in 4-dimensional subspace</p></li>
+<li><p>Draws random samples in this subspace and convert them back to feature space and print</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Print original characters</span>
+<span class="n">printCharacters</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+
+
+<span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">projected</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+
+<span class="c1"># Convert originals back to 64 dim feature space and print</span>
+<span class="n">printCharacters</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">projected</span><span class="p">[:</span><span class="mi">10</span><span class="p">]))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span><span class="p">[:</span><span class="mi">10</span><span class="p">])</span>
+
+<span class="c1"># Fit the GMM model and sample random characters </span>
+<span class="n">gmm</span> <span class="o">=</span> <span class="n">GaussianMixture</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span><span class="n">covariance_type</span><span class="o">=</span><span class="s1">&#39;full&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">projected</span><span class="p">)</span>
+<span class="n">data</span><span class="p">,</span><span class="n">character</span><span class="o">=</span><span class="n">gmm</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Convert randomly generated samples back to 64 dim feature space</span>
+<span class="n">printCharacters</span><span class="p">(</span><span class="n">pca</span><span class="o">.</span><span class="n">inverse_transform</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">character</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[0 1 2 3 4 5 6 7 8 9]
+[0 1 2 3 4 5 6 7 8 9]
+[0 0 0 1 5 6 6 7 8 9]
+</pre></div>
+</div>
+<img alt="_images/b4970c86ee89b60d262c49d2a7da74bf8db08304d24d7a138903bae8c58798c8.png" src="_images/b4970c86ee89b60d262c49d2a7da74bf8db08304d24d7a138903bae8c58798c8.png" />
+<img alt="_images/2847c3355549fcc8579b8a56e351a1bfb07c08bca3cd98f05139b7152a30ce30.png" src="_images/2847c3355549fcc8579b8a56e351a1bfb07c08bca3cd98f05139b7152a30ce30.png" />
+<img alt="_images/000c38873acf4216d7da07f6b718f2e97b55c29bc935ecbef6ea414aa88413ad.png" src="_images/000c38873acf4216d7da07f6b718f2e97b55c29bc935ecbef6ea414aa88413ad.png" />
+</div>
+</div>
+</section>
+<section id="the-results-of-pca-forward-and-inverse-transformation-and-gmm-random-sampling">
+<h3>The results of PCA forward and inverse transformation and GMM random sampling<a class="headerlink" href="#the-results-of-pca-forward-and-inverse-transformation-and-gmm-random-sampling" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Even four dimensional PCA didn’t yet capture very well the details of the the caracters. This was already known based on our experimentation with PCA in the last lecture.</p></li>
+<li><p>The 4-component PCA - inverse PCA transformation lost some relevant information and the characters are not perfectly reconstructed</p></li>
+<li><p>The GMM model sampled data from the distribution it learned from the original characters, in PCA space, and when those sampled characters were converted back to feature space, they look like numbers indeed.</p></li>
+<li><p>The GMM model coudn’t perfectly cluster the numbers, since the 4 dimensional PCA didn’t contain enough information for that purpose</p></li>
+<li><p>Higher dimensionality in PCA space does not help, because then the linear GMM model does not work very well any longer due to so called curse of dimensionality</p></li>
+<li><p>Non-linear manifold methods produced better transformation in low-dimensional space, but they do not have inverse transformations.</p></li>
+</ul>
+</section>
+</section>
+<section id="other-clustering-methods">
+<h2>Other clustering methods<a class="headerlink" href="#other-clustering-methods" title="Link to this heading">#</a></h2>
+<p>There are plenty of other clustering methods with different properties. Some of them can handle non-linear cluster better than others, some are fast and some slow. Some can be parallelized and some can handle very large amounts of data. The understanding of operation and limitations of these basic clustering methods shown above, you should be able to compare other methods listed <a class="reference external" href="https://scikit-learn.org/stable/modules/clustering.html">clustering topic of scikit learn</a>, and choose the most suitable. Because all of those available in scikit.learn implement the same object oriented API, it is easy to try many of them in your practical case.</p>
+<p>Some questions you can ask when selecting a clustering algorithm</p>
+<ul class="simple">
+<li><p>Does it need to handle non-linear clusters?</p></li>
+<li><p>What parameters does it need?</p></li>
+<li><p>Does it need to find the number of clusters automatically?</p></li>
+<li><p>How important is the speed?</p></li>
+<li><p>Can it handle large data sets?</p></li>
+<li><p>What distance metrics it uses?</p></li>
+<li><p>Can it handle high dimensional data?</p></li>
+<li><p>Does it need to predict probabilities?</p></li>
+</ul>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading">#</a></h2>
+<p>k-Means algorithm</p>
+<ul class="simple">
+<li><p>Simple linear clustering algorithm based on expectation maximization algorithm</p></li>
+<li><p>The number of clusters needs to be given</p></li>
+<li><p>Expects that the data is distributed isotropically, i.e. clusters are circular, not ellipses</p></li>
+<li><p>Assumes that the variance in each cluster is equal</p></li>
+<li><p>Works best when the size of the clusters are equal</p></li>
+</ul>
+<p>Gaussian Mixture model</p>
+<ul class="simple">
+<li><p>Simple linear clustering algorithm based on expectation maximization algorithm</p></li>
+<li><p>Models the distribution of the data with mixture of Gaussian distributions</p></li>
+<li><p>The number of clusters needs to be given</p></li>
+<li><p>Can model non-isotoropically distributed data (covariance_type=’full’)</p></li>
+<li><p>Can model different variance for different clusters</p></li>
+<li><p>Probabilistic model, meaning that it can also predict the probability that the sample belogs to the certain cluster</p></li>
+<li><p>Can be used for sampling new data based on the same distribution as existing data</p></li>
+</ul>
+<p>There are plenty of other clustering algorithms, which are well documented and easy to take into use.</p>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="5-DimensionalityReduction%20bySubspaceProjections.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Dimensionality reduction by Subspace projections</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="7-TrainingProcess.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Training process</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering">Clustering</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means">k-Means</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-case">Example case</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-2d-sample-data-using-sample-data-generator">Create 2D sample data using sample data generator</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#apply-kmeans">Apply KMeans</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-expectation-maximization-algorithm">The expectation Maximization algorithm</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#application-to-digits-recognition">Application to digits recognition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#k-means-assumptions">k-Means assumptions</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">Gaussian mixture models</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lambda-functions">Lambda functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-of-em-for-gmm-in-one-dimensional-case">Example of EM for GMM in one dimensional case</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-data">Sampling data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trial-for-sampling-random-characters">Trial for sampling random characters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-results-of-pca-forward-and-inverse-transformation-and-gmm-random-sampling">The results of PCA forward and inverse transformation and GMM random sampling</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#other-clustering-methods">Other clustering methods</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusion">Conclusion</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
