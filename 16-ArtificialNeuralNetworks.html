@@ -1,0 +1,1060 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Artificial Neural Networks (ANN) &#8212; My sample book</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '16-ArtificialNeuralNetworks';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Model learning strategies" href="17-ModelLearningStrategies.html" />
+    <link rel="prev" title="Regression and regularisation" href="15-RegressionAndRegularisation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.png" class="logo__image only-light" alt="My sample book - Home"/>
+    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="My sample book - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Welcome to your Jupyter Book
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="1-Introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2-Modeling.html">Modeling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3-ReadingAndPlotting.html">Reading and plotting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="4-PreprocessingAndFeatureExtraction.html">Preprocessing and feature extraction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5-DimensionalityReduction%20bySubspaceProjections.html">Dimensionality reduction by Subspace projections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6-UnsupervisedLearning.html">Unsupervised learning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7-TrainingProcess.html">Training process</a></li>
+
+
+
+
+<li class="toctree-l1"><a class="reference internal" href="12-NearestNeighborsMethods.html">Nearest Neighbours methods <a class="anchor" id="nearestneighbours"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="13-SupportVectorMachine%28SVM%29.html">Support Vector Machine (SVM) <a class="anchor" id="supportvectormachine"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="14-DecisionTreesAndForests.html">Decision trees and forests <a class="anchor" id="dtaforests"></a></a></li>
+<li class="toctree-l1"><a class="reference internal" href="15-RegressionAndRegularisation.html">Regression and regularisation</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Artificial Neural Networks (ANN)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="17-ModelLearningStrategies.html">Model learning strategies</a></li>
+
+
+
+
+
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F16-ArtificialNeuralNetworks.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/16-ArtificialNeuralNetworks.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Artificial Neural Networks (ANN)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-activation-functions">Implementation of activation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-perceptron">Implementation of perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-of-a-perceptron">Testing of a perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-algorithms">Learning algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-perceptron">Multi layer perceptron</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-neural-network">Training a neural network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-stop-training">When to stop training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digits-dataset">Digits dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-analysis">Time series analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-network">Convolutional neural network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keras-and-pytorch">Keras and Pytorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code-for-simple-keras-processing">Example code for simple Keras processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-network-with-keral">Convolutional neural network with Keral</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-models">Pre trained models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-information">More information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="artificial-neural-networks-ann">
+<h1>Artificial Neural Networks (ANN)<a class="headerlink" href="#artificial-neural-networks-ann" title="Link to this heading">#</a></h1>
+<section id="neural-networks">
+<h2>Neural networks<a class="headerlink" href="#neural-networks" title="Link to this heading">#</a></h2>
+<section id="perceptron">
+<h3>Perceptron<a class="headerlink" href="#perceptron" title="Link to this heading">#</a></h3>
+<p>Neural network consists of few layers of perceptrons. Each perceptron simulates the operation of neuron. It collects input variables <span class="math notranslate nohighlight">\(x_i\)</span>, weights them with coefficients <span class="math notranslate nohighlight">\(w_i\)</span>, and sums the result to one value. The output value is obtained by scaling the sum between values 0…1 by using an activation function. For classification, the activation function is binary step function, and for regression, it is continuous, like sigmoid function. The neuron can be teached by updating the weights <span class="math notranslate nohighlight">\(w_i\)</span>.</p>
+<p><img alt="Perceptron" src="kuvat/perceptron.svg" /></p>
+<p>The output of the perceptron is</p>
+<div class="math notranslate nohighlight">
+\[
+  y = f\left(\mathbf{x} \cdot \mathbf{w} + w_0\right) 
+  = f\left( \Sigma_{i=1}^{n} (x_i w_i) + w_0 \right)
+\]</div>
+</section>
+<section id="activation-functions">
+<h3>Activation functions<a class="headerlink" href="#activation-functions" title="Link to this heading">#</a></h3>
+<p>Common activation functions, <span class="math notranslate nohighlight">\(f()\)</span>, are</p>
+<ol class="arabic simple">
+<li><p>Linear</p></li>
+<li><p>Sigmoid</p></li>
+<li><p>Hyperbolic tangent (tanh())</p></li>
+<li><p>REctified Linear activation fUnction (RELU)</p></li>
+</ol>
+<p>Percepton networks using linear activation function are easy to train, but they cannot solve as complex problems as networks using non-linear activation functions. Sigmoid, also known as logistic function, was originally the default activation function, but it was replaced with hyperbolic tangent which seemed to be easier to train and performing better.</p>
+<p>A problem with both sigmoid and hyperbolic tangent is, however, that they saturate to constant output when the input is large or small, which leads to derivative approaching to zero which slows down the training.</p>
+<p>ReLu is simple activation function which supports fast learning due to being mostly linear and allows learning complex problems being piecewise non-linear. ReLu is especially usefull when training deep neural networks.</p>
+<p>Read more about activation function from <a class="reference external" href="https://machinelearningmastery.com/rectified-linear-activation-function-for-deep-learning-neural-networks/">RELU for deep learning NN</a>.</p>
+<p>Sigmoid: $<span class="math notranslate nohighlight">\( f(x)=\frac{1}{1+e^{-x}} \)</span>$</p>
+<p>Tanh: $<span class="math notranslate nohighlight">\(f(x)=\frac{e^x - e^{-x}}{e^x + e^{-x}} \)</span>$</p>
+<p>Relu: $<span class="math notranslate nohighlight">\(f(x) = \begin{cases} 0 &amp;  \text{if} ~ x&lt;0 \\ x &amp; \text{otherwise} \end{cases}\)</span>$</p>
+</section>
+<section id="implementation-of-activation-functions">
+<h3>Implementation of activation functions<a class="headerlink" href="#implementation-of-activation-functions" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">interactive</span><span class="p">,</span> <span class="n">fixed</span><span class="p">,</span> <span class="n">interact_manual</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">widgets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">line</span> <span class="mi">2</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">sns</span><span class="o">.</span><span class="n">set</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;matplotlib&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sigmoid</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+<span class="n">tanh</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span>
+<span class="n">relu</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">[</span><span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sigmoid&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">tanh</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;g&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Tanh&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">relu</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;ReLu&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">axis</span><span class="p">([</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="o">-</span><span class="mf">1.1</span><span class="p">,</span><span class="mf">1.1</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;activation_functions.svg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/7bd6ffc85a9809b3c3d8a69a0b84becd70963ca58b3748fef2b8213e26b61784.png" src="_images/7bd6ffc85a9809b3c3d8a69a0b84becd70963ca58b3748fef2b8213e26b61784.png" />
+</div>
+</div>
+</section>
+<section id="implementation-of-perceptron">
+<h3>Implementation of perceptron<a class="headerlink" href="#implementation-of-perceptron" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">perceptron</span><span class="p">(</span><span class="n">X</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">activation</span><span class="o">=</span><span class="s1">&#39;relu&#39;</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;tanh&#39;</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">tanh</span>
+    <span class="k">elif</span> <span class="n">activation</span> <span class="o">==</span> <span class="s1">&#39;sigmoid&#39;</span><span class="p">:</span>
+        <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">activation</span> <span class="o">!=</span> <span class="s1">&#39;relu&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Unknown activation function, using ReLu&quot;</span><span class="p">)</span>
+        <span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f</span><span class="p">(</span><span class="n">W</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="nb">sum</span><span class="p">(</span><span class="n">X</span><span class="o">*</span><span class="n">W</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="testing-of-a-perceptron">
+<h3>Testing of a perceptron<a class="headerlink" href="#testing-of-a-perceptron" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">W</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="n">N</span><span class="o">=</span><span class="mi">100</span>
+<span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">6</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="n">N</span><span class="p">)</span>
+<span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test</span><span class="p">(</span><span class="n">w0</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">w1</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">W</span><span class="p">,</span><span class="n">x</span>
+    <span class="n">W</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">(</span><span class="n">w0</span><span class="p">,</span><span class="n">w1</span><span class="p">)</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="n">perceptron</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">W</span><span class="p">,</span> <span class="n">activation</span><span class="p">)</span> <span class="k">for</span> <span class="n">xx</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s1">&#39;--&#39;</span><span class="p">)</span>
+    
+<span class="n">interact</span><span class="p">(</span><span class="n">test</span><span class="p">,</span> <span class="n">w0</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">3.0</span><span class="p">,</span><span class="mf">3.0</span><span class="p">),</span><span class="n">w1</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sigmoid&#39;</span><span class="p">,</span> <span class="s1">&#39;tanh&#39;</span><span class="p">,</span> <span class="s1">&#39;relu&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="_images/4d9cc7bbe51c6de4e28132eb593cb9ca5081a7d915308fa8fe1a6b19728d6569.png" src="_images/4d9cc7bbe51c6de4e28132eb593cb9ca5081a7d915308fa8fe1a6b19728d6569.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;function __main__.test(w0=0.0, w1=1.0, activation=&#39;sigmoid&#39;)&gt;
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="learning-algorithms">
+<h3>Learning algorithms<a class="headerlink" href="#learning-algorithms" title="Link to this heading">#</a></h3>
+<p>When using Stochastic Gradient Descent (<strong>SGD</strong>) training,  the weights, <span class="math notranslate nohighlight">\(w_i\)</span>, are updated towards the gradient (multidimensional derivative) or the loss function.
+$<span class="math notranslate nohighlight">\(
+    w \leftarrow w - \eta \left(\alpha \frac{\partial R(w)}{\partial w} + \frac{\partial L(w)}{\partial w}\right),
+\)</span>$</p>
+<p>where <span class="math notranslate nohighlight">\(\eta\)</span> is the learning rate, <span class="math notranslate nohighlight">\(\alpha\)</span> is the regularization term (L2 penalty for exessive model complexity), <span class="math notranslate nohighlight">\(R\)</span> is a function related to model complexity and <span class="math notranslate nohighlight">\(L\)</span> is a loss function. The weights of the model are simply updated to the direction where the model loss is reduced and model complexity is reduced.</p>
+<p><strong>Adams</strong> is slightly more advanced and can optimize the parameters of the search, and find optimum faster. Another common learning method is <strong>L-BFGS</strong> (Limited memory, Broyden-Fletcher-Goldfarb-Shannon). It is also using the second derivatives of the search space and is thus faster, when the derivatives and memory resources are available.</p>
+<p><img alt="Training of MLP" src="kuvat/mlp_training.svg" /></p>
+</section>
+<section id="multi-layer-perceptron">
+<h3>Multi layer perceptron<a class="headerlink" href="#multi-layer-perceptron" title="Link to this heading">#</a></h3>
+<p>A single perceptron can only handle simple problems. For more complex problems, a network of several layers of perceptrons are needed. These networks are called as Multi Layer Perceptron networks (MLP) or artificial neural networks (ANN). When the number of hidden layer is large, the network is called as Deep Neural Network (DNN) and it is one example of Deep Learning.</p>
+<p><img alt="Perceptron" src="kuvat/mlp.svg" /></p>
+</section>
+</section>
+<section id="training-a-neural-network">
+<h2>Training a neural network<a class="headerlink" href="#training-a-neural-network" title="Link to this heading">#</a></h2>
+<p>Training of a neural network is carried out through following steps</p>
+<ol class="arabic simple">
+<li><p>The training data, including input data <span class="math notranslate nohighlight">\(X\)</span> and the correct answers <span class="math notranslate nohighlight">\(y\)</span> is selected</p></li>
+<li><p>The training data is split in one or more <strong>batches</strong></p></li>
+<li><p>The training of the network is carried out it <strong>iterations</strong>, each iteration uses one batch of training data. The results of the network is compared against the correct output, and the coefficients of the network are updated to produce better results next time</p></li>
+<li><p>The training is proceed in next iteration, until all batches of input data is consumed</p></li>
+<li><p>At this time one <strong>EPOCH</strong> passed. The training often continues by using the same data again, and the whole training process can last from one EPOCH up to hundreds of EPOCHs.</p></li>
+</ol>
+<section id="when-to-stop-training">
+<h3>When to stop training<a class="headerlink" href="#when-to-stop-training" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>The performance of the network usually improves when the traning continues.</p></li>
+<li><p>The learning is fast in the beginning, but slows down after the network is well trained already</p></li>
+<li><p>If the training continues too long, the network starts memorizing the training data and the performance is still seemingly improving, but the network’s capability to predict new data starts decreasing. This situation is called as overfitting.</p></li>
+<li><p>The amount of overfitting may be monitored by testing the prediction also in the separate validation set which is not used for training.</p></li>
+<li><p>When the performance in the validation set starts decreasing, it is time to stop training.</p></li>
+</ul>
+<p><img alt="When to stop trainig" src="kuvat/stoptraining.svg" /></p>
+<p>Try to train multi layer neural network models in <a class="reference external" href="https://playground.tensorflow.org/">Neural Network Playground</a>.</p>
+</section>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading">#</a></h2>
+<p>The above Iris example can be classified using Multi Layer Perceptron Classifier (MLPC) but SVM already handled that problem well and because the number of samples in the dataset is only 150, it is only sufficient for training very thin MLPC. Therefore, lets create an artificial classification problem with 1000 samples and tree partly overlapping classes to make the problem more challengin and train an MLPC for solving it.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neural_network</span><span class="w"> </span><span class="kn">import</span> <span class="n">MLPClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn</span><span class="w"> </span><span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">r2_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">snippets</span><span class="w"> </span><span class="kn">import</span> <span class="n">plotDB</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a random 3-class classification problem, with 1000 samples and 2 features</span>
+<span class="n">X</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">data</span><span class="o">=</span><span class="n">datasets</span><span class="o">.</span><span class="n">make_classification</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">n_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                                  <span class="n">n_clusters_per_class</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_informative</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">n_redundant</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Create a multilayer perceptron classifier with 10 and 6 perceptrons in hidden layer</span>
+<span class="n">predictor</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">classes</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+<span class="c1"># Assess the accuracy of the classifier</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+<span class="n">M</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+<span class="c1"># Plot the results and decision boundaries</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction accuracy is&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+<span class="n">plotDB</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[308  19   8]
+ [  8 323   4]
+ [  4  13 313]]
+Prediction accuracy is 0.944
+</pre></div>
+</div>
+<img alt="_images/fa9dafedcb3cdfaa8a06ca84b9e5ec02f9cd2b96c60f7fa5199f1b813fc20244.png" src="_images/fa9dafedcb3cdfaa8a06ca84b9e5ec02f9cd2b96c60f7fa5199f1b813fc20244.png" />
+</div>
+</div>
+</section>
+<section id="digits-dataset">
+<h2>Digits dataset<a class="headerlink" href="#digits-dataset" title="Link to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">digits</span> <span class="o">=</span> <span class="n">datasets</span><span class="o">.</span><span class="n">load_digits</span><span class="p">()</span>
+<span class="n">X</span><span class="o">=</span><span class="n">digits</span><span class="o">.</span><span class="n">data</span>
+<span class="n">y</span><span class="o">=</span><span class="n">digits</span><span class="o">.</span><span class="n">target</span>
+
+<span class="n">predictor</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,),</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">predictor</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+
+<span class="n">classes</span> <span class="o">=</span> <span class="n">predictor</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/petri/venv/python3/lib/python3.9/site-packages/sklearn/neural_network/_multilayer_perceptron.py:692: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn&#39;t converged yet.
+  warnings.warn(
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction accuracy is&quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+
+<span class="c1"># Assess the accuracy of the classifier</span>
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">classes</span><span class="p">)</span>
+<span class="n">cvscore</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">predictor</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="n">M</span><span class="o">=</span><span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">classes</span><span class="p">)</span>
+
+<span class="c1"># Plot the results and decision boundaries</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">M</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction accuracy is   &quot;</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Prediction accuracy in CV&quot;</span><span class="p">,</span> <span class="n">cvscore</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Prediction accuracy is 0.944
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/petri/venv/python3/lib/python3.9/site-packages/sklearn/neural_network/_multilayer_perceptron.py:692: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn&#39;t converged yet.
+  warnings.warn(
+/home/petri/venv/python3/lib/python3.9/site-packages/sklearn/neural_network/_multilayer_perceptron.py:692: ConvergenceWarning: Stochastic Optimizer: Maximum iterations (1000) reached and the optimization hasn&#39;t converged yet.
+  warnings.warn(
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[[177   0   0   0   0   0   1   0   0   0]
+ [  0 181   0   0   0   0   0   1   0   0]
+ [  0   0 177   0   0   0   0   0   0   0]
+ [  0   0   1 180   0   2   0   0   0   0]
+ [  0   0   0   0 181   0   0   0   0   0]
+ [  0   0   0   0   0 178   0   2   0   2]
+ [  0   2   0   0   0   0 179   0   0   0]
+ [  0   0   0   0   0   0   0 178   0   1]
+ [  0   1   0   1   1   0   0   0 171   0]
+ [  0   0   0   0   0   1   0   1   0 178]]
+Prediction accuracy is    0.9905397885364496
+Prediction accuracy in CV 0.8770473537604456
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="time-series-analysis">
+<h2>Time series analysis<a class="headerlink" href="#time-series-analysis" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In it’s standard form, the neural network has no understanding of time, and it is therefore not very suitable for time series analysis, for example in predicting future values</p></li>
+<li><p>Several variations of Neural Networks are however suitable for time series analysis</p></li>
+<li><p>Recurrent Neural Networks (RNN), for example Recurreng Gate Units (GRU) and Long-Short-Term Memory (LSTM) networks are common methods for time series analysis with ANN</p></li>
+<li><p>Read more from <a class="reference external" href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks">Recurrent Neural Networks cheatsheet</a></p></li>
+</ul>
+<p><img alt="RNNimage" src="kuvat/RNN.svg" /></p>
+</section>
+<section id="convolutional-neural-network">
+<h2>Convolutional neural network<a class="headerlink" href="#convolutional-neural-network" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>In deep image analysis networks, it is efficient to combine neural network with efficient image processing functions, such as convolution and subsampling (pooling).</p></li>
+<li><p>The following CNN network consists of</p>
+<ul>
+<li><p>4 filters in the first convolutional layer , producing four feature maps for each image channel</p></li>
+<li><p>a subsampling layer, for example 3x3 max pooling with stride=3, to reduce the image size to one third</p></li>
+<li><p>3 filters in the second convolutional layer, producing three features maps from each previous feature maps</p></li>
+<li><p>a second subsampling layer, to reduce the image size</p></li>
+<li><p>A fully connected layer of neurons</p></li>
+<li><p>An output layer of output neurons</p></li>
+</ul>
+</li>
+</ul>
+<p><img alt="Convolutional neural network" src="kuvat/cnn.png" /></p>
+<p>A nice description of convolutional neural network (CNN) is <a class="reference external" href="https://wiki.pathmind.com/convolutional-network">here</a>.</p>
+</section>
+<section id="keras-and-pytorch">
+<h2>Keras and Pytorch<a class="headerlink" href="#keras-and-pytorch" title="Link to this heading">#</a></h2>
+<p>MLP classifier and regressors use only CPU resources, but to utilize real power of ANN, they are often ran in massive parallel hardware, such as GPU:s. This is not necessary for simple neural network models shown above, but they become more important when the number of hidden layers in the network model increases and the model becomes deeper.</p>
+<p>Frameworks often used for Deep Neural Networks are for example Keras, Tensorflow and PyTorch.</p>
+<ul class="simple">
+<li><p>Keras is a high level libary which uses underlying Tensorflow</p></li>
+<li><p>PyTorch is lower level python interface for Torch library</p></li>
+</ul>
+<p><a class="reference external" href="https://keras.io/examples/">Keras examples</a></p>
+<p><a class="reference external" href="https://towardsdatascience.com/keras-vs-pytorch-for-deep-learning-a013cb63870d">Keras vs Pytorch for Deep Learning</a></p>
+<p><a class="reference external" href="https://towardsdatascience.com/keras-vs-pytorch-for-deep-learning-a013cb63870d">PyTorch vs Keras</a></p>
+<p><a class="reference external" href="https://keras.io/why_keras/">Why to choose Keras</a></p>
+<section id="example-code-for-simple-keras-processing">
+<h3>Example code for simple Keras processing<a class="headerlink" href="#example-code-for-simple-keras-processing" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">tf</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow</span><span class="w"> </span><span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras</span><span class="w"> </span><span class="kn">import</span> <span class="n">layers</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">CenterCrop</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tensorflow.keras.layers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Rescaling</span>
+
+<span class="c1"># Example image data, with values in the [0, 255] range</span>
+<span class="n">training_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+
+<span class="c1"># Some preprocessing of the data</span>
+<span class="n">cropper</span> <span class="o">=</span> <span class="n">CenterCrop</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+<span class="n">scaler</span> <span class="o">=</span> <span class="n">Rescaling</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)</span>
+
+<span class="n">output_data</span> <span class="o">=</span> <span class="n">scaler</span><span class="p">(</span><span class="n">cropper</span><span class="p">(</span><span class="n">training_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;shape:&quot;</span><span class="p">,</span> <span class="n">output_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;min:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">output_data</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;max:&quot;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">output_data</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>shape: (64, 150, 150, 3)
+min: 0.0
+max: 1.0
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="convolutional-neural-network-with-keral">
+<h3>Convolutional neural network with Keral<a class="headerlink" href="#convolutional-neural-network-with-keral" title="Link to this heading">#</a></h3>
+<p>The CNN model consists of layers, and the Keras API allows building the layered CNN model in very straightforward manner. Keras contains also many functions for preprocessing images and generating variations from existing image database, because the model contains plenty of parameters and needs therefore a large set of training images.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define an input layer, which can be arbitrary size, but include 3 channels (RGB)</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Center-crop images to 150x150</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">CenterCrop</span><span class="p">(</span><span class="n">height</span><span class="o">=</span><span class="mi">150</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">150</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
+
+<span class="c1"># Rescale images to [0, 1]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">Rescaling</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span> <span class="o">/</span> <span class="mi">255</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Apply some convolution and pooling layers</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 50x50</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">))(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 16x16</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Apply global average pooling to get flat feature vectors</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Add a dense classifier on top</span>
+<span class="n">num_classes</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="n">num_classes</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Instantiate the model object</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">64</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">)</span>
+<span class="n">processed_data</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">processed_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(64, 10)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Model: &quot;model_1&quot;
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ input_2 (InputLayer)        [(None, None, None, 3)]   0         
+                                                                 
+ center_crop_3 (CenterCrop)  (None, 150, 150, 3)       0         
+                                                                 
+ rescaling_3 (Rescaling)     (None, 150, 150, 3)       0         
+                                                                 
+ conv2d_3 (Conv2D)           (None, 148, 148, 32)      896       
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 49, 49, 32)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 47, 47, 32)        9248      
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 15, 15, 32)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_5 (Conv2D)           (None, 13, 13, 32)        9248      
+                                                                 
+ global_average_pooling2d_1   (None, 32)               0         
+ (GlobalAveragePooling2D)                                        
+                                                                 
+ dense_1 (Dense)             (None, 10)                330       
+                                                                 
+=================================================================
+Total params: 19,722
+Trainable params: 19,722
+Non-trainable params: 0
+_________________________________________________________________
+</pre></div>
+</div>
+</div>
+</div>
+<p>The next steps would be the compile and train the model. Then the performance in the training set and validation set would be tested. You can see the full process in <a class="reference external" href="https://www.geeksforgeeks.org/opencv-and-keras-traffic-sign-classification-for-self-driving-car/?ref=rp">OpenCV and Keras | Traffic Sign Classification for Self-Driving Car</a></p>
+<p>Notice that the model consist of nearly 20 thousand parameters. I takes plenty of data and time to train the model. The training time can be from 10 minutes to days, depending of the complexity of the model and the calculation capacity available.</p>
+</section>
+</section>
+<section id="pre-trained-models">
+<h2>Pre trained models<a class="headerlink" href="#pre-trained-models" title="Link to this heading">#</a></h2>
+<p>Since the training of the neural network models is so time consuming, an important topics in deep learning are pre trained models and transfer learning (the model trained to one application is used in another related application without retraining, or partial re-training.</p>
+<p>Some huge deep networks can be also used as general purpose neural networks. One of the biggest network this far is the Generative Pre-trained Transformer 3 (<a class="reference external" href="https://en.wikipedia.org/wiki/GPT-3">GPT-3</a>), which is suitable for many Natural Language Processing (NLP) tasks. GPT-3 sisältää 175 billion (<span class="math notranslate nohighlight">\(175 \cdot 10^9\)</span>) parameters. GPT-3 can generate text wich is difficult to distinguish from a human writer.</p>
+<p><a class="reference external" href="https://www.theguardian.com/commentisfree/2020/sep/08/robot-wrote-this-article-gpt-3">A robot wrote this entire article. Are you scared yet, human</a></p>
+</section>
+<section id="more-information">
+<h2>More information<a class="headerlink" href="#more-information" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.geeksforgeeks.org/opencv-and-keras-traffic-sign-classification-for-self-driving-car/?ref=rp">OpenCV and Keras | Traffic Sign Classification for Self-Driving Car</a></p></li>
+<li><p>Read more from <a class="reference external" href="https://keras.io/getting_started/intro_to_keras_for_engineers/">Keras for engineers</a></p></li>
+<li><p><a class="reference external" href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-convolutional-neural-networks">Convolutional Neural Networks cheatsheet</a></p></li>
+<li><p><a class="reference external" href="https://stanford.edu/~shervine/teaching/cs-230/cheatsheet-recurrent-neural-networks">Recurrent Neural Networks cheatsheet</a></p></li>
+</ul>
+</section>
+<section id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Artificial Neural Networks (ANN) based on perceptrons, are versatile machine learning methods for both regression and classification. Deep and dense networks can learn to handle complex tasks, but the deeper the network, the more training data is needed.</p></li>
+<li><p>Deep learning can be implemented using many hidden layers in ANN. Deep learning requires large amount of training data.</p></li>
+<li><p>Deep learning is often used for image processing with convolutional neural networks</p></li>
+<li><p>Keras and PyTorch are common libraries for implementing deep learning. They can utilize both CPU:s and NVidia GPU:s for training and predicting</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="15-RegressionAndRegularisation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Regression and regularisation</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="17-ModelLearningStrategies.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Model learning strategies</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#neural-networks">Neural networks</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#perceptron">Perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#activation-functions">Activation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-activation-functions">Implementation of activation functions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implementation-of-perceptron">Implementation of perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-of-a-perceptron">Testing of a perceptron</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-algorithms">Learning algorithms</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-layer-perceptron">Multi layer perceptron</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#training-a-neural-network">Training a neural network</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-stop-training">When to stop training</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#example">Example</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#digits-dataset">Digits dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#time-series-analysis">Time series analysis</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-network">Convolutional neural network</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#keras-and-pytorch">Keras and Pytorch</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#example-code-for-simple-keras-processing">Example code for simple Keras processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutional-neural-network-with-keral">Convolutional neural network with Keral</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pre-trained-models">Pre trained models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#more-information">More information</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary">Summary</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By The Jupyter Book Community
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
