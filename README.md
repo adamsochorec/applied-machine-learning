@@ -14,6 +14,7 @@ Practical implementation and usage of machine learning algorithms, application o
 
 ## Deployment commands
 ```bash
+poetry run jupyter-book build myfirstbook
 poetry run ghp-import -n -p -f notebooks/_build/html
 ```
 
