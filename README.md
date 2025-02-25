@@ -17,4 +17,4 @@ Practical implementation and usage of machine learning algorithms, application o
 poetry run ghp-import -n -p -f notebooks/_build/html
 ```
 
-Useful [guide](https://https://medium.com/@dr.junghoonson/simplest-way-to-publish-your-jupyter-notebooks-on-the-open-web-using-jupyter-book-and-github-pages-eea144031d6f) for pubishing Jupyter Notebooks to GitHub Pages.
+Useful [guide](https://medium.com/@dr.junghoonson/simplest-way-to-publish-your-jupyter-notebooks-on-the-open-web-using-jupyter-book-and-github-pages-eea144031d6f) for pubishing Jupyter Notebooks to GitHub Pages.
