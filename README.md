@@ -1,6 +1,6 @@
 # Applied Machine Learning (AML)
 
-Practical implementation and usage of machine learning algorithms, application of machine learning algorithms in real problems using Python.
+Practical implementation and usage of machine learning algorithms, application of machine learning algorithms in real problems using Python. Notes are from [Petri Valisuö](https://github.com/pevalisuo)'s classes at [University of Vaasa](https://www.uwasa.fi).
 
 <ol>
 <li>Introduction to machine learning</li>
